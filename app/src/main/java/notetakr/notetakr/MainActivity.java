@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(Exception e) {
-                                showAlert("Could not find any text.  Please try again.");
+                                showAlert("An error occurred while attempting to detect text");
                             }
                         });
                     }
