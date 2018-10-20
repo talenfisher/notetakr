@@ -1,5 +1,6 @@
 package notetakr.notetakr;
 
+import android.content.Intent;
 import android.graphics.Camera;
 
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
                             public void onSuccess(FirebaseVisionText result) {
                                 String resultText = result.getText();
                                 System.out.println(resultText);
+
+                                Intent editIntent = new Intent(Intent.ACTION_EDIT);
+                                editIntent.putExtra("data", resultText);
+                                startActivity(editIntent);
                             }
                         })
 
