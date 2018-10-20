@@ -26,6 +26,7 @@ public class EditorActivity extends AppCompatActivity {
         tv.setText(data);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
