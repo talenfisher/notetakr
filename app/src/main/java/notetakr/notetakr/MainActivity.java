@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(FirebaseVisionText result) {
                                 String resultText = result.getText();
-                                // do stuff with resulting text
+                                System.out.println(resultText);
                             }
                         })
 
