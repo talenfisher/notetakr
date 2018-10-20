@@ -41,6 +41,7 @@
                 android:layout_marginTop="100dp">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/title_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -58,6 +59,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        android:showAsAction="ifRoom"
+        android:actionProviderClass="ShareActionProvider"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/ic_menu_set_as" />
