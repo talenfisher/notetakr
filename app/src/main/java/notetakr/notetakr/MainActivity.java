@@ -46,30 +46,30 @@ public class MainActivity extends AppCompatActivity {
                         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
                         FirebaseVisionTextRecognizer textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 
-                            textRecognizer.processImage(image)
+                        textRecognizer.processImage(image)
 
-                            .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-                                @Override
-                                public void onSuccess(FirebaseVisionText result) {
-                                    String resultText = result.getText().trim();
+                        .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                            @Override
+                            public void onSuccess(FirebaseVisionText result) {
+                                String resultText = result.getText().trim();
 
-                                    if(resultText.equals("")) {
-                                        showAlert("Could not find any text.  Please try again.");
-                                        return;
-                                    }
-
-                                    Intent editIntent = new Intent(Intent.ACTION_EDIT);
-                                    editIntent.putExtra("data", resultText);
-                                    startActivity(editIntent);
-                                }
-                            })
-
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(Exception e) {
+                                if(resultText.equals("")) {
                                     showAlert("Could not find any text.  Please try again.");
+                                    return;
                                 }
-                            });
+
+                                Intent editIntent = new Intent(Intent.ACTION_EDIT);
+                                editIntent.putExtra("data", resultText);
+                                startActivity(editIntent);
+                            }
+                        })
+
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(Exception e) {
+                                showAlert("Could not find any text.  Please try again.");
+                            }
+                        });
                     }
 
                 });
