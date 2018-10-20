@@ -28,5 +28,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/capture_button" />
 
-
 </android.support.constraint.ConstraintLayout>

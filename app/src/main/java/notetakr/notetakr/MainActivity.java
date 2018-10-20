@@ -3,6 +3,7 @@ package notetakr.notetakr;
 import android.content.Intent;
 import android.graphics.Camera;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.camerakit.CameraKitView;
@@ -13,12 +14,12 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.content.DialogInterface;
 
 public class MainActivity extends AppCompatActivity {
     private CameraKitView camera;
@@ -45,27 +46,30 @@ public class MainActivity extends AppCompatActivity {
                         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
                         FirebaseVisionTextRecognizer textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 
-                        textRecognizer.processImage(image)
+                            textRecognizer.processImage(image)
 
-                        .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-                            @Override
-                            public void onSuccess(FirebaseVisionText result) {
-                                String resultText = result.getText();
-                                System.out.println(resultText);
+                            .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                                @Override
+                                public void onSuccess(FirebaseVisionText result) {
+                                    String resultText = result.getText().trim();
 
-                                Intent editIntent = new Intent(Intent.ACTION_EDIT);
-                                editIntent.putExtra("data", resultText);
-                                startActivity(editIntent);
-                            }
-                        })
+                                    if(resultText.equals("")) {
+                                        showAlert("Could not find any text.  Please try again.");
+                                        return;
+                                    }
 
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(Exception e) {
-                                // handle errors
-                            }
-                        });
+                                    Intent editIntent = new Intent(Intent.ACTION_EDIT);
+                                    editIntent.putExtra("data", resultText);
+                                    startActivity(editIntent);
+                                }
+                            })
 
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(Exception e) {
+                                    showAlert("Could not find any text.  Please try again.");
+                                }
+                            });
                     }
 
                 });
@@ -74,6 +78,17 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    private void showAlert(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override public void onClick(DialogInterface dialog, int x) {}
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
