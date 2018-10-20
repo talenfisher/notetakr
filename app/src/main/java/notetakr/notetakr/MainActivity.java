@@ -6,6 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.camerakit.CameraKitView;
 import com.camerakit.CameraKitView.ImageCallback;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -24,18 +31,43 @@ public class MainActivity extends AppCompatActivity {
         capture = findViewById(R.id.button_capture);
 
         capture.setOnClickListener(new OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
                 camera.captureImage(new ImageCallback() {
+
                     @Override
                     public void onImage(CameraKitView cameraKitView, byte[] bytes) {
-//                        Bitmap result = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        System.out.println(bytes);
-                    }
-                });
-            }
-        });
 
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
+                        FirebaseVisionTextRecognizer textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+
+                        textRecognizer.processImage(image)
+
+                        .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                            @Override
+                            public void onSuccess(FirebaseVisionText result) {
+                                String resultText = result.getText();
+                                // do stuff with resulting text
+                            }
+                        })
+
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(Exception e) {
+                                // handle errors
+                            }
+                        });
+
+                    }
+
+                });
+
+            }
+
+        });
 
     }
 
