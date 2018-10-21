@@ -62,6 +62,15 @@ public class EditorActivity extends AppCompatActivity {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         startActivity(intent);
                         break;
+                    case "Clear History":
+                        File blankfile = new File(getFilesDir(), "noteTakr.txt");
+                        try{
+                            Writer writer = new FileWriter(blankfile);
+                            writer.write("");
+                        } catch (Exception e) {
+                            Alert ex = new Alert(context, e.toString()); ex.show();
+                    }
+                        break;
                     default: break;
                 }
             }
