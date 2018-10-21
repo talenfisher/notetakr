@@ -1,6 +1,9 @@
 package notetakr.notetakr;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         camera = findViewById(R.id.camera);
         capture = findViewById(R.id.button_capture);
 
+
         capture.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -41,10 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onImage(CameraKitView cameraKitView, byte[] bytes) {
-
+                        FirebaseVision firebase = FirebaseVision.getInstance();
+                        FirebaseVisionTextRecognizer textRecognizer;
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
-                        FirebaseVisionTextRecognizer textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+
+                        if(!isConnected()) {
+                            textRecognizer = firebase.getOnDeviceTextRecognizer();
+                        } else {
+                            textRecognizer = firebase.getCloudTextRecognizer();
+                        }
 
                         textRecognizer.processImage(image)
 
@@ -119,5 +129,10 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         camera.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+    private boolean isConnected(){
+        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnected();
     }
 }
