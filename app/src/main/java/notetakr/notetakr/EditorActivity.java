@@ -94,7 +94,7 @@ public class EditorActivity extends AppCompatActivity {
         try {
             Writer writer = new FileWriter(file, true);
             Date date = new Date();
-            writer.write("\n\n---------------------\nDate: " + date.toString() + " Title: " + title + "\n\n" + s);
+            writer.write("\n\n---------------------\nTitle: " + title +"\nDate: " + date.toString() + "\n\n" + s);
             writer.close();
         } catch (Exception e){
             Alert alert = new Alert(context, e.toString());
