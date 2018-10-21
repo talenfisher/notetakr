@@ -1,6 +1,7 @@
 package notetakr.notetakr;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -52,7 +53,7 @@ public class HistoryActivity extends AppCompatActivity {
                  switch(selectedItem.trim()) {
                      case "Clear All":
                          try {
-                             File file = new File(getFilesDir(), "notesTakr.txt");
+                             File file = new File(getFilesDir(), "noteTakr.txt");
                              Writer writer = new FileWriter(file, false);
                              writer.write("");
                              writer.close();
@@ -62,6 +63,26 @@ public class HistoryActivity extends AppCompatActivity {
                          }
 
                          tv.setText("");
+                         mySpinner.setSelection(0);
+                         break;
+                     case "Save":
+                         try {
+                             File file = new File(getFilesDir(), "noteTakr.txt");
+                             Writer writer = new FileWriter(file, false);
+                             writer.write(tv.getText().toString());
+                             Alert alert = new Alert(context, "Saved"); alert.show();
+                             writer.close();
+                         } catch (Exception e) {
+                             Alert alert = new Alert(context, e.toString()); alert.show();
+                         }
+                         mySpinner.setSelection(0);
+                         break;
+                     case "Export":
+                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                         sharingIntent.setType("text/plain");
+                         sharingIntent.putExtra(Intent.EXTRA_TITLE, "title");
+                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, tv.getText());
+                         startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share)));
                          mySpinner.setSelection(0);
                          break;
 
