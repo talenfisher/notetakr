@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         camera = findViewById(R.id.camera);
         capture = findViewById(R.id.button_capture);
-
+        Context context = this;
 
         capture.setOnClickListener(new OnClickListener() {
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         FirebaseVisionTextRecognizer textRecognizer;
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
-                        
+
                         if(!isConnected()) {
                             textRecognizer = firebase.getOnDeviceTextRecognizer();
                         } else {
@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
                                 String resultText = result.getText().trim();
 
                                 if(resultText.equals("")) {
-                                    showAlert("Could not find any text.  Please try again.");
+                                    Alert alert1 = new Alert(context,"Could not find any text.  Please try again.");
+                                    alert1.show();
                                     return;
                                 }
 
@@ -82,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(Exception e) {
-                                showAlert("An error occurred while attempting to detect text");
+                               Alert alert = new Alert(context,"An error occurred while attempting to detect text");
+                               alert.show();
                             }
                         });
                     }
@@ -93,17 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-    }
-
-    private void showAlert(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message);
-        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-            @Override public void onClick(DialogInterface dialog, int x) {}
-        });
-
-        AlertDialog alert = builder.create();
-        alert.show();
     }
 
     @Override
@@ -140,16 +131,5 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnected();
     }
-    private void writeFile(String s){
-        File file = new File(getFilesDir(), "noteTakr.txt");
-        try {
-            Writer writer = new FileWriter(file, true);
-            Date date = new Date();
-            writer.write(date.toString() + "\n" + "-------------");
-            writer.write("\n" + s);
-            writer.close();
-        } catch (Exception e){
-            showAlert(e.toString());
-        }
-    }
+
 }
