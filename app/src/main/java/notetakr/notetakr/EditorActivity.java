@@ -58,7 +58,10 @@ public class EditorActivity extends AppCompatActivity {
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, tv.getText());
                         startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share)));
                         break;
-
+                    case "Access History":
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        startActivity(intent);
+                        break;
                     default: break;
                 }
             }
@@ -66,7 +69,7 @@ public class EditorActivity extends AppCompatActivity {
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(EditorActivity.this,android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Save));
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(EditorActivity.this,android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Options));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
 
@@ -86,4 +89,5 @@ public class EditorActivity extends AppCompatActivity {
             alert.show();
         }
     }
+
 }

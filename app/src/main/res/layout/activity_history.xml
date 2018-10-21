@@ -20,7 +20,21 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_history" />
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/history_textbox"
+            android:layout_width="292dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:hint="Note Title"
+            android:textSize="18pt" />
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
