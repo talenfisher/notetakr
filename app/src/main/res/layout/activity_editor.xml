@@ -50,22 +50,6 @@
 
     </android.support.design.widget.CollapsingToolbarLayout>
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="527dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="-413dp"
-        android:actionProviderClass="ShareActionProvider"
-        android:showAsAction="ifRoom"
-        app:srcCompat="@android:drawable/ic_menu_set_as" />
-
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
