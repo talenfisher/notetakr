@@ -76,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
                                             return;
                                         }
 
-                                        Intent editIntent = new Intent(Intent.ACTION_EDIT);
+                                        Intent editIntent = new Intent();
+                                        editIntent.setClassName("notetakr.notetakr", "notetakr.notetakr.EditActivity");
                                         editIntent.putExtra("data", resultText);
                                         startActivity(editIntent);
                                     }

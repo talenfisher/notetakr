@@ -58,10 +58,13 @@ public class EditorActivity extends AppCompatActivity {
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, tv.getText());
                         startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share)));
                         break;
+
                     case "Access History":
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        Intent intent = new Intent();
+                        intent.setClassName("notetakr.notetakr", "notetakr.notetakr.HistoryActivity");
                         startActivity(intent);
                         break;
+
                     case "Clear History":
                         File blankfile = new File(getFilesDir(), "noteTakr.txt");
                         try{
