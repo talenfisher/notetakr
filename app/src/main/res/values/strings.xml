@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Notetakr</string>
+    <string-array name="Save">
+        <item>Save Internal</item>
+        <item>Save External</item>
+    </string-array>
+
+
+
+
     <string name="title_activity_editor">EditorActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
