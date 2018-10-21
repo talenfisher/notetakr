@@ -34,6 +34,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     private CameraKitView camera;
     private ImageButton capture;
+    private FloatingActionButton historyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        FloatingActionButton historyButton = findViewById(R.id.fab);
+        historyButton = findViewById(R.id.fab);
         historyButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         camera.onResume();
+
+        capture.setVisibility(View.VISIBLE);
+        historyButton = findViewById(R.id.fab);
     }
 
     @Override
