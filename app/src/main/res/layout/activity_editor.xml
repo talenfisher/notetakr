@@ -44,6 +44,9 @@
                 android:layout_width="292dp"
                 android:layout_height="match_parent"
                 android:background="@color/colorAccent"
+                android:lines="1"
+                android:maxLines="1"
+                android:maxLength="30"
                 android:hint="Note Title"
                 android:textSize="18pt" />
         </android.support.design.widget.TextInputLayout>
