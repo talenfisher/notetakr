@@ -45,12 +45,13 @@ public class EditorActivity extends AppCompatActivity {
                 String selectedItem = parent.getItemAtPosition(position).toString();
 
                 switch(selectedItem) {
-                    case "Save Internal":
+                    case "Save to History":
                         writeFile(title.getText().toString(), data);
-                        Alert alert = new Alert(context, getFilesDir().getAbsolutePath() + "noteTakr.txt"); alert.show();
+                        Alert alert = new Alert(context, "Saved to History");
+                        alert.show();
                         break;
 
-                    case "Save External":
+                    case "Export":
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
                         sharingIntent.putExtra(Intent.EXTRA_TITLE, title.getText().toString());
