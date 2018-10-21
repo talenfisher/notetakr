@@ -20,6 +20,7 @@ import java.util.Scanner;
 
 public class HistoryActivity extends AppCompatActivity {
     private Context context = this;
+    private boolean firstSelectOccurred = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
         EditText tv = (EditText)findViewById(R.id.history_textbox);
-        
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,12 +46,17 @@ public class HistoryActivity extends AppCompatActivity {
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
 
-        mySpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
              @Override
-             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                 if(!firstSelectOccurred) {
+                     firstSelectOccurred = true;
+                     return;
+                 }
+
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 switch(selectedItem) {
-                    case "Clear History":
+                    case "Clear All":
                         try {
                             File file = new File(getFilesDir(), "notesTakr.txt");
                             Writer writer = new FileWriter(file);
@@ -67,6 +73,8 @@ public class HistoryActivity extends AppCompatActivity {
                     default: break;
                 }
              }
+
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
          });
     }
 

@@ -23,7 +23,9 @@ import java.util.Date;
 
 
 public class EditorActivity extends AppCompatActivity {
-    Context context = this;
+    private Context context = this;
+    private boolean firstSelectOccurred = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +44,12 @@ public class EditorActivity extends AppCompatActivity {
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
+                if(!firstSelectOccurred) {
+                    firstSelectOccurred = true;
+                    return;
+                }
 
+                String selectedItem = parent.getItemAtPosition(position).toString();
                 switch(selectedItem) {
                     case "Save to History":
                         writeFile(title.getText().toString(), tv.getText().toString());
