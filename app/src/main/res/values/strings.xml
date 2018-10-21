@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Notetakr</string>
-    <string-array name="Save">
+    <string-array name="Options">
         <item>Save Internal</item>
         <item>Save External</item>
+        <item>Clear History</item>
     </string-array>
 
 
