@@ -4,7 +4,7 @@
         <item>Save to History</item>
         <item>Export</item>
         <item>Clear History</item>
-        <item>Access Images</item>
+        <item>Access History</item>
     </string-array>
 
     <string name="title_activity_editor">EditorActivity</string>
