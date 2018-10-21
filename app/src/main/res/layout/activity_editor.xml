@@ -13,8 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
         android:layout_marginTop="0dp"
         android:fitsSystemWindows="true"
         app:contentScrim="?attr/colorPrimary"
@@ -33,7 +35,7 @@
             app:titleEnabled="false" />
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
+            android:layout_width="264dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
@@ -41,13 +43,15 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/title_bar"
-                android:layout_width="292dp"
+                android:layout_width="265dp"
                 android:layout_height="match_parent"
                 android:background="@color/colorAccent"
-                android:lines="1"
-                android:maxLines="1"
-                android:maxLength="30"
                 android:hint="Note Title"
+
+                android:lines="1"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
                 android:textSize="18pt" />
         </android.support.design.widget.TextInputLayout>
 
@@ -70,12 +74,10 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_above="@id/toolbar_layout"
-        android:layout_alignParentEnd="true"
+        android:layout_width="105dp"
+        android:layout_height="23dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginBottom="-28dp"
