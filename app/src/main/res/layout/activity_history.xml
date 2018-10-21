@@ -19,8 +19,8 @@
         android:layout_marginTop="-39dp"
         android:background="@android:color/white"
         android:hint="Text"
-        android:paddingTop="10dp"
         android:paddingLeft="10dp"
+        android:paddingTop="27dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
         android:textSize="8pt" />
