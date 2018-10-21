@@ -29,7 +29,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="74dp"
-            android:background="@color/colorAccent"
+            android:background="@color/green"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:titleEnabled="false" />
@@ -45,7 +45,7 @@
                 android:id="@+id/title_bar"
                 android:layout_width="265dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent"
+                android:background="@color/green"
                 android:hint="Note Title"
 
                 android:lines="1"
