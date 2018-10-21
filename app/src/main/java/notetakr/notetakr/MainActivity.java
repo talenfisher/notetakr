@@ -24,6 +24,11 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.content.DialogInterface;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     private CameraKitView camera;
     private ImageButton capture;
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         FirebaseVisionTextRecognizer textRecognizer;
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
-
+                        
                         if(!isConnected()) {
                             textRecognizer = firebase.getOnDeviceTextRecognizer();
                         } else {
@@ -134,5 +139,17 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnected();
+    }
+    private void writeFile(String s){
+        File file = new File(getFilesDir(), "noteTakr.txt");
+        try {
+            Writer writer = new FileWriter(file, true);
+            Date date = new Date();
+            writer.write(date.toString() + "\n" + "-------------");
+            writer.write("\n" + s);
+            writer.close();
+        } catch (Exception e){
+            showAlert(e.toString());
+        }
     }
 }
