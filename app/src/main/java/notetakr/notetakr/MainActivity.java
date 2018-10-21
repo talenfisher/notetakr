@@ -101,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
         historyButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Intent intent = new Intent();
+                intent.setClassName("notetakr.notetakr", "notetakr.notetakr.HistoryActivity");
                 startActivity(intent);
             }
         });

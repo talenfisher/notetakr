@@ -38,7 +38,6 @@ public class HistoryActivity extends AppCompatActivity {
         } catch (Exception e){
             Alert alert = new Alert(this, e.toString());
         }
-
     }
 
 }
