@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.content.DialogInterface;
+import android.widget.ProgressBar;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -42,11 +43,15 @@ public class MainActivity extends AppCompatActivity {
         capture = findViewById(R.id.button_capture);
 
         Context context = this;
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+
 
         capture.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                capture.setVisibility(View.INVISIBLE);
 
                 camera.captureImage(new ImageCallback() {
 
@@ -65,31 +70,34 @@ public class MainActivity extends AppCompatActivity {
 
                         textRecognizer.processImage(image)
 
-                                .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-                                    @Override
-                                    public void onSuccess(FirebaseVisionText result) {
-                                        String resultText = result.getText().trim();
+                        .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                            @Override
+                            public void onSuccess(FirebaseVisionText result) {
+                                String resultText = result.getText().trim();
 
-                                        if (resultText.equals("")) {
-                                            Alert alert1 = new Alert(context, "Could not find any text.  Please try again.");
-                                            alert1.show();
-                                            return;
-                                        }
+                                if (resultText.equals("")) {
+                                    Alert alert1 = new Alert(context, "Could not find any text.  Please try again.");
+                                    alert1.show();
+                                    return;
+                                }
 
-                                        Intent editIntent = new Intent();
-                                        editIntent.setClassName("notetakr.notetakr", "notetakr.notetakr.EditorActivity");
-                                        editIntent.putExtra("data", resultText);
-                                        startActivity(editIntent);
-                                    }
-                                })
+                                Intent editIntent = new Intent();
+                                editIntent.setClassName("notetakr.notetakr", "notetakr.notetakr.EditorActivity");
+                                editIntent.putExtra("data", resultText);
+                                startActivity(editIntent);
+                                progressBar.setVisibility(View.INVISIBLE);
+                            }
+                        })
 
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(Exception e) {
-                                        Alert alert = new Alert(context, "An error occurred while attempting to detect text");
-                                        alert.show();
-                                    }
-                                });
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(Exception e) {
+                                Alert alert = new Alert(context, "An error occurred while attempting to detect text");
+                                alert.show();
+                                progressBar.setVisibility(View.INVISIBLE);
+                                capture.setVisibility(View.VISIBLE);
+                            }
+                        });
                     }
 
                 });
