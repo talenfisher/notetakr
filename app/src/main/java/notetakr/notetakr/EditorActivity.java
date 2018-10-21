@@ -46,7 +46,7 @@ public class EditorActivity extends AppCompatActivity {
 
                 switch(selectedItem) {
                     case "Save to History":
-                        writeFile(title.getText().toString(), data);
+                        writeFile(title.getText().toString(), tv.getText().toString());
                         Alert alert = new Alert(context, "Saved to History");
                         alert.show();
                         break;
