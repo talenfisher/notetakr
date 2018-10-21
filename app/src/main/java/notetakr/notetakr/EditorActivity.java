@@ -24,7 +24,6 @@ import java.util.Date;
 
 public class EditorActivity extends AppCompatActivity {
     private Context context = this;
-    private boolean firstSelectOccurred = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +41,16 @@ public class EditorActivity extends AppCompatActivity {
 
         Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(!firstSelectOccurred) {
-                    firstSelectOccurred = true;
-                    return;
-                }
-
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 switch(selectedItem) {
                     case "Save to History":
                         writeFile(title.getText().toString(), tv.getText().toString());
                         Alert alert = new Alert(context, "Saved to History");
                         alert.show();
+                        mySpinner.setSelection(0);
                         break;
 
                     case "Export":
@@ -63,12 +59,14 @@ public class EditorActivity extends AppCompatActivity {
                         sharingIntent.putExtra(Intent.EXTRA_TITLE, title.getText().toString());
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, tv.getText());
                         startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share)));
+                        mySpinner.setSelection(0);
                         break;
 
                     case "Access History":
                         Intent intent = new Intent();
                         intent.setClassName("notetakr.notetakr", "notetakr.notetakr.HistoryActivity");
                         startActivity(intent);
+                        mySpinner.setSelection(0);
                         break;
 
                     case "Clear History":
@@ -78,7 +76,8 @@ public class EditorActivity extends AppCompatActivity {
                             writer.write("");
                         } catch (Exception e) {
                             Alert ex = new Alert(context, e.toString()); ex.show();
-                    }
+                        }
+                        mySpinner.setSelection(0);
                         break;
                     default: break;
                 }

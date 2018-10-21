@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Notetakr</string>
     <string-array name="Options">
+        <item>Options</item>
         <item>Save to History</item>
         <item>Export</item>
         <item>Clear History</item>
@@ -8,6 +9,7 @@
     </string-array>
 
     <string-array name="History_Options">
+        <item>Options</item>
         <item>Clear All</item>
         <item>Save</item>
         <item>Export</item>

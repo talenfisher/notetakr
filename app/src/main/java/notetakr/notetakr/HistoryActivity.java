@@ -20,7 +20,6 @@ import java.util.Scanner;
 
 public class HistoryActivity extends AppCompatActivity {
     private Context context = this;
-    private boolean firstSelectOccurred = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,29 +48,25 @@ public class HistoryActivity extends AppCompatActivity {
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
              @Override
              public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                 if(!firstSelectOccurred) {
-                     firstSelectOccurred = true;
-                     return;
+                 String selectedItem = parent.getItemAtPosition(position).toString();
+                 switch(selectedItem.trim()) {
+                     case "Clear All":
+                         try {
+                             File file = new File(getFilesDir(), "notesTakr.txt");
+                             Writer writer = new FileWriter(file, false);
+                             writer.write("");
+                             writer.close();
+
+                         } catch(Exception e) {
+                             Alert alert = new Alert(context, e.toString());
+                         }
+
+                         tv.setText("");
+                         mySpinner.setSelection(0);
+                         break;
+
+
                  }
-
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                switch(selectedItem) {
-                    case "Clear All":
-                        try {
-                            File file = new File(getFilesDir(), "notesTakr.txt");
-                            Writer writer = new FileWriter(file);
-                            writer.write("");
-                            writer.close();
-                            tv.setText("");
-
-                        } catch(Exception e) {
-                            Alert alert = new Alert(context, e.toString());
-                        }
-
-                        break;
-
-                    default: break;
-                }
              }
 
             @Override public void onNothingSelected(AdapterView<?> parent) {}
