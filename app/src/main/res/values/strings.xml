@@ -99,4 +99,5 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="share">Share Using</string>
+    <string name="title_activity_history">HistoryActivity</string>
 </resources>

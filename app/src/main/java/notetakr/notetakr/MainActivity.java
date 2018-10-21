@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
 
-                        if(!isConnected()) {
+                        if (!isConnected()) {
                             textRecognizer = firebase.getOnDeviceTextRecognizer();
                         } else {
                             textRecognizer = firebase.getCloudTextRecognizer();
@@ -65,36 +65,45 @@ public class MainActivity extends AppCompatActivity {
 
                         textRecognizer.processImage(image)
 
-                        .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-                            @Override
-                            public void onSuccess(FirebaseVisionText result) {
-                                String resultText = result.getText().trim();
+                                .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                                    @Override
+                                    public void onSuccess(FirebaseVisionText result) {
+                                        String resultText = result.getText().trim();
 
-                                if(resultText.equals("")) {
-                                    Alert alert1 = new Alert(context,"Could not find any text.  Please try again.");
-                                    alert1.show();
-                                    return;
-                                }
+                                        if (resultText.equals("")) {
+                                            Alert alert1 = new Alert(context, "Could not find any text.  Please try again.");
+                                            alert1.show();
+                                            return;
+                                        }
 
-                                Intent editIntent = new Intent(Intent.ACTION_EDIT);
-                                editIntent.putExtra("data", resultText);
-                                startActivity(editIntent);
-                            }
-                        })
+                                        Intent editIntent = new Intent(Intent.ACTION_EDIT);
+                                        editIntent.putExtra("data", resultText);
+                                        startActivity(editIntent);
+                                    }
+                                })
 
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(Exception e) {
-                               Alert alert = new Alert(context,"An error occurred while attempting to detect text");
-                               alert.show();
-                            }
-                        });
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(Exception e) {
+                                        Alert alert = new Alert(context, "An error occurred while attempting to detect text");
+                                        alert.show();
+                                    }
+                                });
                     }
 
                 });
 
             }
 
+        });
+
+        FloatingActionButton historyButton = findViewById(R.id.fab);
+        historyButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                startActivity(intent);
+            }
         });
 
     }
