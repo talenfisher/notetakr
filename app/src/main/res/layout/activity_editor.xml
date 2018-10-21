@@ -26,7 +26,8 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="74dp"
+            android:background="@color/colorAccent"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:titleEnabled="false" />
@@ -42,7 +43,7 @@
                 android:id="@+id/title_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
+                android:background="@color/colorAccent"
                 android:hint="Note Title"
                 android:textSize="18pt" />
         </android.support.design.widget.TextInputLayout>
@@ -58,33 +59,41 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="527dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="-413dp"
         android:actionProviderClass="ShareActionProvider"
         android:showAsAction="ifRoom"
-        app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/ic_menu_set_as" />
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/fab"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
         android:layout_marginTop="76dp">
+
 
         <include layout="@layout/content_editor" />
     </FrameLayout>
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_above="@id/toolbar_layout"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp" />
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="-17dp"
+        android:background="@android:color/transparent" />
 
 </android.support.design.circularreveal.CircularRevealRelativeLayout>
